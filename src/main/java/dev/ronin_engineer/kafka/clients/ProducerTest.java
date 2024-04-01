@@ -18,6 +18,7 @@ public class ProducerTest implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        Thread.sleep(5000);
         producer.send(outboundTopic, "k1", "test");
     }
 }

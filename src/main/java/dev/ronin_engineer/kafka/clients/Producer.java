@@ -16,7 +16,8 @@ public class Producer {
 
     public void send(String topic, String key, String value) {
         try {
-            SendResult<String, String> result = kafkaTemplate.send(topic, key, value).get();
+            kafkaTemplate.send(topic, key, value);
+//            SendResult<String, String> result = kafkaTemplate.send(topic, key, value).get();
             log.info("Produced a message to topic: " + topic + " with key: " + key + ", value: " + value);
         } catch (Exception e) {
             log.error("Failed to produce the message to topic: " + topic);
