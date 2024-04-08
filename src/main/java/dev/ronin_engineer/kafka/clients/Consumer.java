@@ -14,19 +14,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class Consumer {
 
-    @Value("${kafka.inbound-topic}")
-    private String inboundTopic;
-
-
     @KafkaListener(
             topics = "${kafka.inbound-topic}"
     )
-    public void listen(@Header(name = KafkaHeaders.RECEIVED_KEY, required = false) String key,
+    public void listen(@Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
                        @Header(name = KafkaHeaders.RECEIVED_PARTITION) int partition,
+                       @Header(name = KafkaHeaders.RECEIVED_KEY, required = false) String key,
                        @Payload String value) {
-        log.info("Received a message from topic: " + inboundTopic + ", partition: " + partition + ", key: " + key + ", value: " + value);
+        log.info("Received a message from topic: " + topic + ", partition: " + partition + ", key: " + key + ", value: " + value);
         try {
-            log.info("Processed the message: " + value);
+            log.info("Processing the message: " + value);
         }
         catch (Exception e) {
             log.error("Failed to process message: " + value);
