@@ -12,9 +12,7 @@ public class ProducerTest implements CommandLineRunner {
     @Value("${kafka.outbound-topic:first-topic}")
     private String outboundTopic;
 
-
     private final Producer producer;
-
 
     @Override
     public void run(String... args) throws Exception {
